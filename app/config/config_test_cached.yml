@@ -10,12 +10,12 @@ doctrine:
             default:
                 metadata_cache_driver:
                     type: memcached
-                    host: localhost
+                    host: memcached
                     port: 11211
 
 doctrine_phpcr:
     odm:
         metadata_cache_driver:
             type: memcached
-            host: localhost
+            host: memcached
             port: 11211
