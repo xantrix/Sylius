@@ -1,0 +1,1 @@
+docker inspect $(docker-compose ps -q sshd) | grep IPAddress

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+docker run -i --rm -v "${PWD}":"${PWD}" -v /tmp/:/tmp/ -w ${PWD} --net=host --sig-proxy=true --pid=host \
+    originalbrownbear/php:7-cli-phpunit-xdebug php "$@"
+

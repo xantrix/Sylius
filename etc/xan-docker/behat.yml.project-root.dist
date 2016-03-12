@@ -1,0 +1,32 @@
+imports: ["behat.yml.dist"]
+#default / cached
+cached:
+    extensions:
+        Behat\MinkExtension:
+            #base_url: http://localhost:8080/
+            #base_url: http://sylius.dev
+            base_url: http://172.17.0.7/app_dev.php
+            #base_url: http://172.17.0.6:8080/
+            default_session: symfony
+            #javascript_session: chrome - firefox
+            javascript_session: chrome
+            sessions:
+                symfony:
+                    symfony2: ~
+                chrome:
+                    selenium2:
+                        wd_host: http://selenium:4444/wd/hub
+                        browser: chrome
+                        capabilities:
+                            browserName: chrome
+                            browser: chrome
+                            version: ""
+                            chrome:
+                                switches:
+                                    - "start-fullscreen"
+                                    - "start-maximized"
+                                    - "no-sandbox"
+#                firefox:
+#                    selenium2:
+#                        wd_host: http://selenium:4444/wd/hub
+#                        browser: firefox

@@ -1,0 +1,1 @@
+docker inspect $(docker-compose ps -q sylius_nginx) | grep IPAddress
