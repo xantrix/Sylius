@@ -45,12 +45,12 @@ class AttributeValueTranslationTypeSpec extends ObjectBehavior
             ->willReturn($builder)
         ;
 
-        $this->buildForm($builder, ['valueTranslationType' => 'text']);
+        $this->buildForm($builder, ['value_translation_type' => 'text']);
     }
 
     function it_defines_assigned_data_class(OptionsResolver $resolver)
     {
-        $resolver->setRequired('valueTranslationType')->shouldBeCalled();
+        $resolver->setRequired('value_translation_type')->shouldBeCalled();
         $resolver->setDefaults([
             'data_class' => 'AttributeValueTranslation',
             'validation_groups' => ['sylius'],
@@ -59,7 +59,7 @@ class AttributeValueTranslationTypeSpec extends ObjectBehavior
         $this->configureOptions($resolver);
     }
 
-    function it_has_valid_name()
+    function it_has_name()
     {
         $this->getName()->shouldReturn('sylius_server_attribute_value_translation');
     }

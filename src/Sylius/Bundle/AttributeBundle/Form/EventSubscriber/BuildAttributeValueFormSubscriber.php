@@ -35,11 +35,12 @@ class BuildAttributeValueFormSubscriber implements EventSubscriberInterface
 
     /**
      * @param RepositoryInterface $attributeRepository
+     * @param string subjectName
      */
-    public function __construct(RepositoryInterface $attributeRepository, $subject = null)
+    public function __construct(RepositoryInterface $attributeRepository, $subjectName = null)
     {
         $this->attributeRepository = $attributeRepository;
-        $this->subjectName = $subject;
+        $this->subjectName = $subjectName;
     }
 
     /**
@@ -95,12 +96,12 @@ class BuildAttributeValueFormSubscriber implements EventSubscriberInterface
     {
         $options = ['auto_initialize' => false, 'label' => $attribute->getName()];
 
-        if ($attribute->isValueTranslatable()) {
+        if ($attribute->isTranslatable()) {
             $form->add('translations', 'a2lix_translationsForms', [
                 'form_type' => sprintf('sylius_%s_attribute_value_translation', $this->subjectName),
                 'label' => 'sylius.form.value_translation.presentation',
                 'form_options' => [
-                    'valueTranslationType' => $attribute->getType(),
+                    'value_translation_type' => $attribute->getType(),
                 ],
             ]);
         } else {

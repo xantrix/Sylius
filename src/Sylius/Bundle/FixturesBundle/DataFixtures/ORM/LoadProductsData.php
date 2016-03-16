@@ -107,7 +107,7 @@ class LoadProductsData extends DataFixture
         $randomCollection = sprintf('Symfony2 %s %s', $this->faker->randomElement(['Summer', 'Winter', 'Spring', 'Autumn']), rand(1995, 2012));
         $this->addAttribute($product, 'T-Shirt collection', $randomCollection);
 
-        // T-Shirt material with Spanish translations.
+        // T-Shirt material
         $randomMaterial = $this->faker->randomElement(['Polyester', 'Wool', 'Polyester 10% / Wool 90%', 'Potato 100%']);
         $esMaterialTranslations = [
             'Polyester' => 'Poliéster',
@@ -297,11 +297,11 @@ class LoadProductsData extends DataFixture
      * Adds attribute to product with given value.
      *
      * @param ProductInterface $product
-     * @param string           $name
-     * @param string           $value
-     * @param array            $translations
+     * @param string $name
+     * @param string $value
+     * @param array $translations
      */
-    protected function addAttribute(ProductInterface $product, $name, $value, $translations = [])
+    protected function addAttribute(ProductInterface $product, $name, $value, array $translations = [])
     {
         /* @var $attribute AttributeValueInterface */
         $attribute = $this->getProductAttributeValueFactory()->createNew();

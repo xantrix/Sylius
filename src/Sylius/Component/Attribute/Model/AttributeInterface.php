@@ -64,5 +64,5 @@ interface AttributeInterface extends
     /**
      * @return bool
      */
-    public function isValueTranslatable();
+    public function isTranslatable();
 }

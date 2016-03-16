@@ -19,8 +19,6 @@ use Sylius\Component\Resource\Model\ResourceInterface;
 interface AttributeValueTranslationInterface extends ResourceInterface
 {
     /**
-     * The name displayed to user.
-     *
      * @return string
      */
     public function getValue();

@@ -188,6 +188,7 @@ class AttributeValue implements AttributeValueInterface
     public function getText()
     {
         $this->assertLocaleIsSet();
+
         return $this->translate()->getValue();
     }
 
@@ -273,13 +274,10 @@ class AttributeValue implements AttributeValueInterface
         }
     }
 
-    /**
-     * @return void
-     */
     protected function assertLocaleIsSet()
     {
         $this->assertAttributeIsSet();
-        if (null === $this->getCurrentLocale() || null === $this->getFallbackLocale() ) {
+        if (null === $this->getCurrentLocale() || null === $this->getFallbackLocale()) {
             $this->setCurrentLocale($this->attribute->getCurrentLocale());
             $this->setFallbackLocale($this->attribute->getFallbackLocale());
         }

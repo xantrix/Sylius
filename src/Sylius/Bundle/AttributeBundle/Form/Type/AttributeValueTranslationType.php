@@ -33,6 +33,7 @@ class AttributeValueTranslationType extends AbstractResourceType
     public function __construct($dataClass, array $validationGroups, $subjectName)
     {
         parent::__construct($dataClass, $validationGroups);
+
         $this->subjectName = $subjectName;
     }
 
@@ -41,7 +42,7 @@ class AttributeValueTranslationType extends AbstractResourceType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $valueTranslationType = 'sylius_attribute_type_'.$options['valueTranslationType'];
+        $valueTranslationType = 'sylius_attribute_type_'.$options['value_translation_type'];
         $builder
             ->add('value', $valueTranslationType, [
                 'label' => 'sylius.form.attribute.name',
@@ -55,7 +56,8 @@ class AttributeValueTranslationType extends AbstractResourceType
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
-        $resolver->setRequired('valueTranslationType');
+
+        $resolver->setRequired('value_translation_type');
     }
 
     /**

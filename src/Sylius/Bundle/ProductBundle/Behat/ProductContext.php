@@ -411,7 +411,7 @@ class ProductContext extends DefaultContext
 
         foreach ($inputs as $input) {
             $id = $input->getAttribute('id');
-            if(false !== stripos($id, $locale)){
+            if (false !== stripos($id, $locale)) {
                 return $input->setValue($value);
             }
         }

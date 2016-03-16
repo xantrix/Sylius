@@ -76,7 +76,7 @@ class AttributeController extends ResourceController
 
         $attributes = $attributeRepository->findBy(['id' => $choices]);
         foreach ($attributes as $attribute) {
-            if ($attribute->isValueTranslatable()) {
+            if ($attribute->isTranslatable()) {
                 $count = $request->query->get('count');
                 $subject = str_replace('_attribute', '', $this->metadata->getName());
                 $form = $this->get('form.factory')->createNamed('translations', 'a2lix_translationsForms', null, [
@@ -86,7 +86,7 @@ class AttributeController extends ResourceController
                         'attr' => [
                             'data-name' => 'sylius_'.$subject.'[attributes]['.$count.'][translations]',
                         ],
-                        'valueTranslationType' => $attribute->getType(),
+                        'value_translation_type' => $attribute->getType(),
                     ],
                 ]);
             } else {
