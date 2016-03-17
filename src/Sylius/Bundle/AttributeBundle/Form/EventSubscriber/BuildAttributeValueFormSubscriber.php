@@ -11,6 +11,7 @@
 
 namespace Sylius\Bundle\AttributeBundle\Form\EventSubscriber;
 
+use Sylius\Bundle\AttributeBundle\Form\Type\AttributeValueType\Configuration\Factory\AttributeValueTypeConfigurationFactoryInterface;
 use Sylius\Component\Attribute\Model\AttributeInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -34,13 +35,23 @@ class BuildAttributeValueFormSubscriber implements EventSubscriberInterface
     protected $subjectName;
 
     /**
-     * @param RepositoryInterface $attributeRepository
-     * @param string subjectName
+     * @var AttributeValueTypeConfigurationFactoryInterface
      */
-    public function __construct(RepositoryInterface $attributeRepository, $subjectName = null)
-    {
+    protected $attributeValueTypeConfigurationFactory;
+
+    /**
+     * @param RepositoryInterface $attributeRepository
+     * @param string $subjectName
+     * @param AttributeValueTypeConfigurationFactoryInterface $attributeValueTypeConfigurationFactory
+     */
+    public function __construct(
+        RepositoryInterface $attributeRepository,
+        $subjectName,
+        AttributeValueTypeConfigurationFactoryInterface $attributeValueTypeConfigurationFactory
+    ) {
         $this->attributeRepository = $attributeRepository;
         $this->subjectName = $subjectName;
+        $this->attributeValueTypeConfigurationFactory = $attributeValueTypeConfigurationFactory;
     }
 
     /**
@@ -96,16 +107,13 @@ class BuildAttributeValueFormSubscriber implements EventSubscriberInterface
     {
         $options = ['auto_initialize' => false, 'label' => $attribute->getName()];
 
-        if ($attribute->isTranslatable()) {
-            $form->add('translations', 'a2lix_translationsForms', [
-                'form_type' => sprintf('sylius_%s_attribute_value_translation', $this->subjectName),
-                'label' => 'sylius.form.value_translation.presentation',
-                'form_options' => [
-                    'value_translation_type' => $attribute->getType(),
-                ],
-            ]);
-        } else {
-            $form->add('value', 'sylius_attribute_type_'.$attribute->getType(), $options);
-        }
+        $attributeValueConfig = $this->attributeValueTypeConfigurationFactory
+            ->create($attribute, $this->subjectName);
+
+        $form->add(
+            $attributeValueConfig->getName(),
+            $attributeValueConfig->getType(),
+            $options + $attributeValueConfig->getFormOptions()
+        );
     }
 }

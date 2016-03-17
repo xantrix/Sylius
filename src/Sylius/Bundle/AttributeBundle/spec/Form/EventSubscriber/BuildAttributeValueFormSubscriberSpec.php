@@ -14,6 +14,7 @@ namespace spec\Sylius\Bundle\AttributeBundle\Form\EventSubscriber;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Sylius\Bundle\AttributeBundle\Form\EventSubscriber\BuildAttributeValueFormSubscriber;
+use Sylius\Bundle\AttributeBundle\Form\Type\AttributeValueType\Configuration\Factory\AttributeValueTypeConfigurationFactoryInterface;
 use Sylius\Component\Attribute\AttributeType\CheckboxAttributeType;
 use Sylius\Component\Attribute\AttributeType\DateAttributeType;
 use Sylius\Component\Attribute\Model\AttributeInterface;
@@ -32,9 +33,11 @@ use Symfony\Component\Form\FormEvents;
  */
 class BuildAttributeValueFormSubscriberSpec extends ObjectBehavior
 {
-    function let(RepositoryInterface $attributeRepository)
-    {
-        $this->beConstructedWith($attributeRepository);
+    function let(
+        RepositoryInterface $attributeRepository,
+        AttributeValueTypeConfigurationFactoryInterface $attributeValueTypeConfigurationFactory
+    ) {
+        $this->beConstructedWith($attributeRepository, 'server', $attributeValueTypeConfigurationFactory);
     }
 
     function it_is_initialized()

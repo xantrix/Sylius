@@ -25,9 +25,11 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class AttributeValueTypeSpec extends ObjectBehavior
 {
-    function let(EntityRepository $attributeRepository)
-    {
-        $this->beConstructedWith('AttributeValue', ['sylius'], 'server', $attributeRepository);
+    function let(
+        EntityRepository $attributeRepository,
+        AttributeValueTypeConfigurationFactoryInterface $attributeValueTypeConfigurationFactory
+    ) {
+        $this->beConstructedWith('AttributeValue', ['sylius'], 'server', $attributeRepository, $attributeValueTypeConfigurationFactory);
     }
 
     function it_is_initializable()
